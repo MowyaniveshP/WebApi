@@ -16,7 +16,7 @@ namespace WebApi.Controllers
 			_eventRepository = eventRepository;
 		}
 
-		[HttpGet(Name = "GetEvents")]
+		[HttpGet(Name = "GetEvents")] // get endpoint to get all events from local DB
 		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Event>))]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -33,22 +33,23 @@ namespace WebApi.Controllers
 			}
 		}
 
-		[HttpGet("{id}", Name = "GetEvent")]
-		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Event>))]
-		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		[ProducesResponseType(StatusCodes.Status404NotFound)]
-		[ProducesDefaultResponseType]
-		public async Task<ActionResult<Event>> GetEventAsync(uint id)
-		{
-			Event result = await _eventRepository.GetEventAsync(id);
-			if (result != null)
-			{
-				return Ok(result);
-			}
-			return BadRequest();
-		}
+		// endpoint to get event by ID
+		//[HttpGet("{id}", Name = "GetEvent")]
+		//[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Event>))]
+		//[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		//[ProducesResponseType(StatusCodes.Status404NotFound)]
+		//[ProducesDefaultResponseType]
+		//public async Task<ActionResult<Event>> GetEventAsync(uint id)
+		//{
+		//	Event result = await _eventRepository.GetEventAsync(id);
+		//	if (result != null)
+		//	{
+		//		return Ok(result);
+		//	}
+		//	return BadRequest();
+		//}
 
-		[HttpPost(Name = "SaveEventsFromURL")]
+		[HttpPost(Name = "SaveEventsFromURL")] // endpoint to retrieve and store data from sourceURL into DB
 		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Event>))]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -63,7 +64,7 @@ namespace WebApi.Controllers
 			return BadRequest();
 		}
 
-		[HttpDelete]
+		[HttpDelete] // delete endpoint to delete all db records
 		public async Task<ActionResult> Delete()
 		{
 			await _eventRepository.DeleteDataAsync();

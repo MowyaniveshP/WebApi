@@ -14,9 +14,11 @@ namespace WebApi.Repositories
 			_config = config;
 			_db = db;
 		}
+
+		// collect and save events from source URL
 		public async Task<bool> SaveEventsAsync()
 		{
-			//string url = "https://opencollective.com/sustainoss/events.json";
+
 			string URL = _config["URL"].ToString();
 
 			HttpClient httpClient = new();
@@ -35,42 +37,28 @@ namespace WebApi.Repositories
 			return await SaveAsync();
 		}
 
-		//public async Task<bool> EventsExistsAsync(uint id)
-		//{
-		//	bool eventExists = await _db.Events.AnyAsync(o => o.Id == id);
-		//	var locationId = 0;
-		//	if (eventExists == true)
-		//	{
-		//		Event eve = _db.Events.FirstOrDefault(o => o.Id == id);
-		//		if (eve != null)
-		//		{
-		//			locationId = eve.LocationId;
-		//		}
-		//	}
-		//	bool locationExists = await _db.Locations.AnyAsync(o => o.Id == locationId);
-
-		//	return (eventExists);
-
-		//}
-
+		// get all events
 		public async Task<IList<Event>> GetEventsAsync()
 		{
 			List<Event> events = await _db.Events.Include(o => o.Location).ToListAsync();
 			return events;
 		}
 
-		public async Task<Event> GetEventAsync(uint id)
-		{
-			Event eventbyId = await _db.Events.Include(o => o.Location).FirstOrDefaultAsync(o => o.Id == id);
-			return eventbyId;
-		}
+		// get event based on ID --not used
+		//public async Task<Event> GetEventAsync(uint id)
+		//{
+		//	Event eventbyId = await _db.Events.Include(o => o.Location).FirstOrDefaultAsync(o => o.Id == id);
+		//	return eventbyId;
+		//}
 
+		// to save data
 		public async Task<bool> SaveAsync()
 		{
 			bool value = await _db.SaveChangesAsync() >= 0;
 			return value;
 		}
 
+		// do delete data from DB
 		public async Task<bool> DeleteDataAsync()
 		{
 			List<Event> events = await _db.Events.Include(o => o.Location).ToListAsync();
