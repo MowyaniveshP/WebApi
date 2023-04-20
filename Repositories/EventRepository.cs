@@ -44,13 +44,6 @@ namespace WebApi.Repositories
 			return events;
 		}
 
-		// get event based on ID --not used
-		//public async Task<Event> GetEventAsync(uint id)
-		//{
-		//	Event eventbyId = await _db.Events.Include(o => o.Location).FirstOrDefaultAsync(o => o.Id == id);
-		//	return eventbyId;
-		//}
-
 		// to save data
 		public async Task<bool> SaveAsync()
 		{

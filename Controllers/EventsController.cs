@@ -33,22 +33,6 @@ namespace WebApi.Controllers
 			}
 		}
 
-		// endpoint to get event by ID
-		//[HttpGet("{id}", Name = "GetEvent")]
-		//[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Event>))]
-		//[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		//[ProducesResponseType(StatusCodes.Status404NotFound)]
-		//[ProducesDefaultResponseType]
-		//public async Task<ActionResult<Event>> GetEventAsync(uint id)
-		//{
-		//	Event result = await _eventRepository.GetEventAsync(id);
-		//	if (result != null)
-		//	{
-		//		return Ok(result);
-		//	}
-		//	return BadRequest();
-		//}
-
 		[HttpPost(Name = "SaveEventsFromURL")] // endpoint to retrieve and store data from sourceURL into DB
 		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Event>))]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
